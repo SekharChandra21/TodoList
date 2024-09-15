@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Listener</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="base_layout.css">
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            color: white;
+            height: 100px;
+            background-color: rgb(6, 13, 104);
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .container {
+            height: auto;
+            border: 2px solid rgb(3, 42, 114);
+            margin: 30px;
+            padding: 20px;
+        }
+
+        .ulist {
+            list-style: none;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        .list {
+            border: 2px solid red;
+            margin: 10px;
+            padding: 5px;
+            font-size: x-large;
+        }
+
+        .btn {
+            margin-left: 95%;
+            padding: 5px;
+            font-size: x-large;
+            color: white;
+            background-color: red;
+            text-align: center;
+            display: inline;
+        }
+
+        .abc {
+            border: 2px solid red;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .c-btn {
+            padding: 5px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        input[type="button"]{
+            background:#21d327;
+            height: 30px;
+            width: 60px;
+            border-radius: 7px;
+            border-width: 0px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <div class="info">
+                Name : A. Chandra Sekhar <br> <br>
+                Registration Number : 21MIC7143
+            </div>
+            <div class="profile-pic">
+                <img src="https://res.cloudinary.com/dhmu50efw/image/upload/v1693493815/myimage_k8ighd.jpg" alt="image here">
+            </div>
+        </header>
+        
+        <main>
+            <div class="header">
+                <h1>ITEM LISTNER</h1>
+            </div>
+            <div class="container">
+                <h1>Add Items</h1>
+                <input type="text" id="inp">
+                <input type="button" value="Submit" id="s">
+                <!-- <input type="button" value="Reverse" id="r"> -->
+                <ul class="ulist" id="ulists"> </ul>
+            </div>
+            <script>
+                let v = document.getElementById("inp")
+                let sb = document.getElementById("s")
+                let rb = document.getElementById("r")
+                itemList = document.getElementById("ulists")
+                sb.addEventListener('click', add)
+                function add() {
+                    status = 1
+                    if (v.value == "") {
+                        alert("Value is blank, You cant add this to the list")
+                        status = 0
+                    }
+                    if (!isNaN(v.value)) {
+                        alert("must not be a number")
+                        status = 0
+                    }
+    
+                    items = document.getElementsByClassName("abc");
+                    for (var i = 0; i < items.length; i++) {
+                        if (items[i].getAttribute('data-value') == v.value) {
+                            alert("Invalid entry");
+                            status = 0;
+                            break;
+                        }
+                    }
+    
+                    if (status == 1) {
+                        appendElement();
+                    }
+                }
+    
+                function appendElement() {
+                    let n = document.createElement('li');
+                    n.className = "abc"
+                    n.innerText = v.value
+                    n.setAttribute('data-value', v.value);
+    
+                    let button = document.createElement("button");
+                    button.innerText = 'X';
+                    button.className = 'c-btn';
+                    n.setAttribute('onclick', "del()");
+                    n.appendChild(button);
+    
+    
+    
+                    itemList.appendChild(n);
+    
+                    v.value = '';
+                }
+    
+                function del() {
+                    if (confirm('Do you want to delete??')) {
+                        pn = event.target.parentElement;
+    
+                        pn.remove();
+                    }
+                }
+    
+                v.addEventListener('keyup', (e) => {
+                    if (e.keyCode === 13) {
+                        add();
+                    }
+                })
+            </script>
+        </main>
+
+        <footer>
+            <div class="foot-head">
+                <div><li class="fa-solid fa-phone"></li> &nbsp;  +91 91213 18625</div>
+                <div class="social-links">
+                    <ul>
+                        <li><a href="https://www.facebook.com/chandu.aripaka.1"><i class="fa-brands fa-facebook"></i></a></li>
+                        <li><a href="https://github.com/SekharChandra21"><i class="fa-brands fa-github"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/aripaka-chandra-sekhar/"><i class="fa-brands fa-linkedin"></i></a></li>
+                        <li><a href="https://www.instagram.com/chandu_chintuu_/"><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+                <div><li class="fa-solid fa-envelope"></li>  &nbsp; sekhararipaka456@gmail.com</div>
+            </div>
+            <div class="foot-foot">
+                © 2021 All Rights Reserved | Design by A. Chandra Sekhar
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
